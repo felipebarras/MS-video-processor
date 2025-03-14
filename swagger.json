@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FIAP Video Processor API",
+    "version": "1.0.0",
+    "description": "API para upload e processamento de vídeos"
+  },
+  "paths": {
+    "/video/upload": {
+      "post": {
+        "summary": "Faz o upload de um vídeo e inicia o processamento",
+        "tags": ["Vídeo"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "video": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "O vídeo a ser processado"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "E-mail do usuário"
+                  }
+                },
+                "required": ["video", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vídeo recebido e processamento iniciado"
+          },
+          "400": {
+            "description": "Erro no upload ou e-mail não informado"
+          },
+          "500": {
+            "description": "Erro no processamento do vídeo"
+          }
+        }
+      }
+    },
+    "/video/status": {
+      "get": {
+        "summary": "Consulta o status de processamento dos vídeos de um cliente",
+        "tags": ["Vídeo"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "clientName",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Nome do cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a lista de vídeos processados e seus status"
+          },
+          "400": {
+            "description": "Nome do cliente não foi informado"
+          },
+          "500": {
+            "description": "Erro ao consultar o status do processamento"
+          }
+        }
+      }
+    }
+  }
+}
