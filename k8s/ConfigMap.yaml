@@ -5,5 +5,4 @@ metadata:
   labels:
     app: video-processor-app
 data:
-  PORT: '3000'
   FRAME_PROCESSOR_API_URL: ''
