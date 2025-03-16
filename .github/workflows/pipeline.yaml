@@ -38,7 +38,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           npx sonarqube-scanner \
-            -Dsonar.organization=ms-pedido \
+            -Dsonar.organization=ms-video-processor \
             -Dsonar.projectKey=felipebarras_MS-video-processor \
             -Dsonar.sources=src \
             -Dsonar.exclusions=src/__tests__/** \
