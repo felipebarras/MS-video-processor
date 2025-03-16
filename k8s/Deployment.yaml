@@ -29,6 +29,11 @@ spec:
               value: us-east-1
             - name: SQS_QUEUE_URL
               value: https://sqs.us-east-1.amazonaws.com/345124661122/SQS-FIAP-Hackathon
+            - name: FRAME_PROCESSOR_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: video-processor-config
+                  key: FRAME_PROCESSOR_API_URL
           resources:
             requests:
               cpu: '500m'

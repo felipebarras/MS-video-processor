@@ -1,7 +1,7 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const FRAME_PROCESSOR_BASE_URL = process.env.PROCESSOR_URL || 'http://localhost:8080';
+const FRAME_PROCESSOR_API_URL = process.env.FRAME_PROCESSOR_API_URL || 'http://localhost:8080';
 
 /**
  * Consulta o status de processamento dos vídeos de um cliente específico.
@@ -11,7 +11,7 @@ const FRAME_PROCESSOR_BASE_URL = process.env.PROCESSOR_URL || 'http://localhost:
 
 async function getProcessingStatus(clientName) {
   try {
-    const response = await axios.get(`${FRAME_PROCESSOR_BASE_URL}/status`, { params: { clientName } });
+    const response = await axios.get(`${FRAME_PROCESSOR_API_URL}/status`, { params: { clientName } });
 
     return response.data;
   } catch (err) {
