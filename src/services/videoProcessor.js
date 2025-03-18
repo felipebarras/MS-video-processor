@@ -58,24 +58,4 @@ function generateTimeStamps(duration, interval) {
   return timestamps;
 }
 
-/**
- * Compacta uma pasta em um arquivo ZIP.
- */
-function createZipFromFolder(sourceFolder, zipFilePath) {
-  return new Promise((resolve, reject) => {
-    const output = fs.createWriteStream(zipFilePath);
-    const archive = archiver('zip', { zlib: { level: 9 } });
-
-    output.on('close', () => {
-      console.log(`Arquivo ZIP criado com ${archive.pointer()} bytes.`);
-      resolve();
-    });
-
-    archive.on('error', (err) => reject(err));
-    archive.pipe(output);
-    archive.directory(sourceFolder, false);
-    archive.finalize();
-  });
-}
-
-module.exports = { extractFrames, createZipFromFolder };
+module.exports = { extractFrames };

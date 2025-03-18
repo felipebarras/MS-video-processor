@@ -25,9 +25,13 @@
                   "email": {
                     "type": "string",
                     "description": "E-mail do usuário"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Nome do usuário"
                   }
                 },
-                "required": ["video", "email"]
+                "required": ["video", "email", "username"]
               }
             }
           }
@@ -37,7 +41,7 @@
             "description": "Vídeo recebido e processamento iniciado"
           },
           "400": {
-            "description": "Erro no upload ou e-mail não informado"
+            "description": "Erro no upload, username ou e-mail não informado"
           },
           "500": {
             "description": "Erro no processamento do vídeo"
