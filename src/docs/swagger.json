@@ -1,0 +1,182 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FIAP Video Processor API",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de vídeos enviados por usuários e notificação de upload"
+  },
+  "paths": {
+    "/frames": {
+      "get": {
+        "summary": "Lista todos os frames por username",
+        "tags": ["Frames"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Nome de usuário para filtrar os vídeos enviados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de frames retornada com sucesso"
+          },
+          "500": {
+            "description": "Erro ao listar os frames"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cria um novo frame",
+        "tags": ["Frames"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "videoName": {
+                    "type": "string"
+                  }
+                },
+                "required": ["username", "email", "videoName"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Frame criado com sucesso"
+          },
+          "400": {
+            "description": "Erro ao criar frame"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta todos os frames",
+        "tags": ["Frames"],
+        "responses": {
+          "200": {
+            "description": "Todos os frames foram deletados com sucesso"
+          },
+          "500": {
+            "description": "Erro ao deletar os frames"
+          }
+        }
+      }
+    },
+    "/frames/{frameId}": {
+      "get": {
+        "summary": "Obtém um frame pelo ID",
+        "tags": ["Frames"],
+        "parameters": [
+          {
+            "name": "frameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do frame retornados com sucesso"
+          },
+          "404": {
+            "description": "Frame não encontrado"
+          },
+          "500": {
+            "description": "Erro ao consultar o frame"
+          }
+        }
+      }
+    },
+    "/frames/{frameId}/upload": {
+      "get": {
+        "summary": "Gera uma URL assinada para upload do vídeo",
+        "tags": ["Frames"],
+        "parameters": [
+          {
+            "name": "frameId",
+            "in": "path",
+            "required": true,
+            "description": "ID do frame",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "URL de upload gerada com sucesso"
+          },
+          "500": {
+            "description": "Erro ao gerar a URL de upload"
+          }
+        }
+      }
+    },
+    "/frames/{frameId}/uploaded": {
+      "patch": {
+        "summary": "Atualiza o status do frame após upload do vídeo",
+        "tags": ["Frames"],
+        "parameters": [
+          {
+            "name": "frameId",
+            "in": "path",
+            "required": true,
+            "description": "ID do frame a ser atualizado",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "felipebarras"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "felipeu.santos@gmail.com"
+                  }
+                },
+                "required": ["username", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status atualizado com sucesso e mensagem enviada para a fila SQS"
+          },
+          "404": {
+            "description": "Frame não encontrado"
+          },
+          "500": {
+            "description": "Erro ao atualizar status e enviar para SQS"
+          }
+        }
+      }
+    }
+  }
+}

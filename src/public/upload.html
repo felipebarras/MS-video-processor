@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload de Vídeo para o S3</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h1 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      input[type='file'],
+      input[type='text'] {
+        margin: 10px 0;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 15px;
+        width: 100%;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .msg {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload de vídeo para o bucket S3</h1>
+      <input type="text" id="frameIdInput" placeholder="Insira o frameId" />
+      <input type="file" id="fileInput" accept="video/*" />
+      <button onclick="uploadVideo()">Enviar</button>
+      <div class="msg" id="msgBox"></div>
+    </div>
+
+    <script>
+      async function uploadVideo() {
+        const frameId = document.querySelector('#frameIdInput').value;
+        const fileInput = document.querySelector('#fileInput');
+        const msgBox = document.querySelector('#msgBox');
+        const file = fileInput.files[0];
+
+        if (!frameId || !file) {
+          msgBox.innerText = 'Insira o frameId e selecione um vídeo';
+          return;
+        }
+
+        try {
+          const res = await fetch(`/frames/${frameId}/upload`);
+          const data = await res.json();
+          const uploadURL = data.uploadURL;
+
+          msgBox.innerText = 'Enviando vídeo para o bucket...';
+
+          const uploadRes = await fetch(uploadURL, {
+            method: 'PUT',
+            body: file,
+            headers: { 'Content-Type': file.type }
+          });
+
+          uploadRes.ok ? (msgBox.innerText = '✅ Upload feito com sucesso!') : (msgBox.innerText = '❌ Erro ao fazer upload no S3.');
+        } catch (err) {
+          console.error(`Erro ao tentar fazer upload: ${err}`);
+          msgBox.innerText = 'Erro inesperado. Veja o console.';
+        }
+      }
+    </script>
+  </body>
+</html>

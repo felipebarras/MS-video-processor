@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-processor-service
+  labels:
+    app: video-processor-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: video-processor-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

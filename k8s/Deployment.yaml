@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-processor-deployment
+  labels:
+    app: video-processor-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-processor-app
+  template:
+    metadata:
+      labels:
+        app: video-processor-app
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: video-processor-app
+          image: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-processor:latest
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: PORT
+              value: 3000
+            - name: AWS_REGION
+              value: us-east-1
+            - name: SQS_QUEUE_URL
+              value: https://sqs.us-east-1.amazonaws.com/345124661122/SQS-FIAP-Hackathon
+            - name: FRAME_PROCESSOR_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: video-processor-config
+                  key: FRAME_PROCESSOR_API_URL
+          resources:
+            requests:
+              cpu: '500m'
+              memory: '512Mi'
+            limits:
+              cpu: '1000m'
+              memory: '1024Mi'
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: video-processor-config
+  labels:
+    app: video-processor-app
+data:
+  FRAME_PROCESSOR_API_URL: ''
