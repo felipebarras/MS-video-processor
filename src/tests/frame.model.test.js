@@ -1,18 +1,16 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const frameModel = require('../models/frame.model');
-const { MONGODB_URI } = require('../utils/env');
+const { connectToDatabase, getDb } = require('../config/database');
 
 let client, db;
 
 beforeAll(async () => {
-  client = new MongoClient(MONGODB_URI);
-  await client.connect();
-  db = client.db();
+  await connectToDatabase();
+  db = getDb();
 });
 
 afterAll(async () => {
   await db.collection('frames').deleteMany({});
-  await client.close();
 });
 
 describe('Frame Model', () => {
@@ -36,7 +34,7 @@ describe('Frame Model', () => {
     const frames = await frameModel.getFrameByUsername('felipebarras');
 
     expect(Array.isArray(frames)).toBe(true);
-    expect(frames.length).toBeFreaterThan(0);
+    expect(frames.length).toBeGreaterThan(0);
   });
 
   test('updateFrameStatus deve atualizar o status do frame', async () => {

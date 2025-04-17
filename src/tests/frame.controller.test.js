@@ -30,12 +30,12 @@ describe('Frame Controller', () => {
     await frameController.createFrame(req, res);
 
     expect(frameModel.createFrame).toHaveBeenCalled();
-    expect(res.status).toBe(201);
+    expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith({ frameId: 'abc123' });
   });
 
   test('getFrameById - deve retornar um frame baseado no ID', async () => {
-    const req = { query: { frameId: 'abc123' } };
+    const req = { params: { frameId: 'abc123' } };
     const res = mockRes();
 
     frameModel.getFrameById.mockResolvedValue({ _id: 'abc123', username: 'felipebarras' });

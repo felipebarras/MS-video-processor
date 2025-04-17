@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.88% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/18</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.88% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/18</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,67 +100,67 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { ObjectId } = require('mongodb');
 const { getDb } = require('../config/database');
 &nbsp;
-exports.createFrame = <span class="fstat-no" title="function not covered" >as</span>ync (data) =&gt; {
-  const db = <span class="cstat-no" title="statement not covered" >await getDb();</span>
-  const result = <span class="cstat-no" title="statement not covered" >await db.collection('frames').insertOne(data);</span>
+exports.createFrame = async (data) =&gt; {
+  const db = await getDb();
+  const result = await db.collection('frames').insertOne(data);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return result.insertedId;</span>
+  return result.insertedId;
 };
 &nbsp;
-exports.getFrameById = <span class="fstat-no" title="function not covered" >as</span>ync (id) =&gt; {
-  const db = <span class="cstat-no" title="statement not covered" >await getDb();</span>
+exports.getFrameById = async (id) =&gt; {
+  const db = await getDb();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return db.collection('frames').findOne({ _id: new ObjectId(id) });</span>
+  return db.collection('frames').findOne({ _id: new ObjectId(id) });
 };
 &nbsp;
-exports.getFrameByUsername = <span class="fstat-no" title="function not covered" >as</span>ync (username) =&gt; {
-  const db = <span class="cstat-no" title="statement not covered" >await getDb();</span>
+exports.getFrameByUsername = async (username) =&gt; {
+  const db = await getDb();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return db.collection('frames').find({ username }).toArray();</span>
+  return db.collection('frames').find({ username }).toArray();
 };
 &nbsp;
-exports.updateFrameStatus = <span class="fstat-no" title="function not covered" >as</span>ync (id, newStatus) =&gt; {
-  const db = <span class="cstat-no" title="statement not covered" >await getDb();</span>
+exports.updateFrameStatus = async (id, newStatus) =&gt; {
+  const db = await getDb();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return db.collection('frames').updateOne({ _id: new ObjectId(id) }, { $set: { status: newStatus } });</span>
+  return db.collection('frames').updateOne({ _id: new ObjectId(id) }, { $set: { status: newStatus } });
 };
 &nbsp;
-exports.deleteAllFrames = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-  const db = <span class="cstat-no" title="statement not covered" >getDb();</span>
+exports.deleteAllFrames = async () =&gt; {
+  const db = getDb();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return db.collection('frames').deleteMany({});</span>
+  return db.collection('frames').deleteMany({});
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -169,7 +169,7 @@ exports.deleteAllFrames = <span class="fstat-no" title="function not covered" >a
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-17T02:07:31.502Z
+                at 2025-04-17T20:01:30.297Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
