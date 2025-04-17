@@ -1,5 +1,3 @@
-const request = require('supertest');
-const app = require('../app');
 const frameModel = require('../models/frame.model');
 const frameController = require('../controllers/frame.controller');
 const s3 = require('../utils/s3.client');
@@ -32,8 +30,8 @@ describe('Frame Controller', () => {
     await frameController.createFrame(req, res);
 
     expect(frameModel.createFrame).toHaveBeenCalled();
-    expect(response.status).toBe(201);
-    expect(response.json).toHaveBeenCalledWith({ frameId: 'abc123' });
+    expect(res.status).toBe(201);
+    expect(res.json).toHaveBeenCalledWith({ frameId: 'abc123' });
   });
 
   test('getFrameById - deve retornar um frame baseado no ID', async () => {
@@ -44,8 +42,8 @@ describe('Frame Controller', () => {
 
     await frameController.getFrameById(req, res);
 
-    expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith({ _id: 'abc123', username: 'felipebarras' });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ _id: 'abc123', username: 'felipebarras' });
   });
 
   test('getUploadURL - deve retornar URL de upload', async () => {
@@ -57,8 +55,8 @@ describe('Frame Controller', () => {
     await frameController.getUploadURL(req, res);
 
     expect(s3.generatePresignedUrl).toHaveBeenCalledWith('abc123', 'putObject');
-    expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith({ uploadURL: 'https://test-presigned.url' });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ uploadURL: 'https://test-presigned.url' });
   });
 
   test('confirmUpload - deve enviar para fila SQS e atualizar status', async () => {
