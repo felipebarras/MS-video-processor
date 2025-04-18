@@ -23,7 +23,7 @@ exports.getFrameById = async (req, res) => {
     const { frameId } = req.params;
 
     const frame = await frameModel.getFrameById(frameId);
-    if (!frame) return res.status(404).json({ error: 'Frame não encontrado' });
+    if (!frame) return res.status(404).json({ error: 'Frame não encontrado.' });
 
     console.log(`Frame encontrado por ID: ${JSON.stringify(frame)}`);
 
@@ -68,8 +68,8 @@ exports.confirmUpload = async (req, res) => {
 
     const frame = await frameModel.getFrameById(frameId);
     if (!frame) {
-      console.log('Confirm Upload: Frame não encontrado. ', frameId);
-      return res.status(404).json({ error: 'Frame não encontrado' });
+      console.log(`Confirm Upload: Frame não encontrado. ${frameId}`);
+      return res.status(404).json({ error: 'Frame não encontrado.' });
     }
     console.log(`Frame encontrado do upload: frameId=${frameId}`);
 
