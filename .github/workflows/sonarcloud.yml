@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '18'
 
@@ -28,9 +28,9 @@ jobs:
         run: npm install
 
       - name: Run tests with coverage
-        run: npm test
+        run: npm test --coverage
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.9
+        uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
