@@ -1,0 +1,55 @@
+name: Deploy in EKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    name: Build, Push to ECR, and Deploy to EKS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configurar credenciais da AWS
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      # Login no Amazon ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Build da imagem Docker
+      - name: Build Docker Image
+        run: |
+          docker build -t video-processor:latest .
+
+      # Push da imagem para o ECR
+      - name: Push Docker Image to Amazon ECR
+        env:
+          ECR_URL: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-processor
+        run: |
+          docker tag video-processor:latest $ECR_URL:latest
+          docker push $ECR_URL:latest
+
+      # Configurar o kubectl com o cluster EKS
+      - name: Configure Kubectl
+        env:
+          EKS_CLUSTER_NAME: EKS-FIAP-Hackathon
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name $EKS_CLUSTER_NAME
+
+      # Aplicar os manifestos do Kubernetes
+      - name: Apply Kubernetes Manifests
+        run: |
+          kubectl apply -f k8s/Service.yaml
+          kubectl apply -f k8s/Deployment.yaml
