@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
+const { COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID } = require('../utils/env');
 
 const region = 'us-east-1';
-const userPoolId = 'us-east-1_MKWw9pL8q';
-const clientId = '2o0ul3o15gc83uido9o2djt06l';
+const userPoolId = COGNITO_USER_POOL_ID;
+const clientId = COGNITO_CLIENT_ID;
 
 const iss = `https://cognito-idp.${region}.amazonaws.com/${userPoolId}`;
 

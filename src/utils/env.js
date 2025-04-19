@@ -12,5 +12,7 @@ module.exports = {
   SQS_QUEUE_ARN: process.env.SQS_QUEUE_ARN,
   S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
   S3_BUCKET_ARN: process.env.S3_BUCKET_ARN,
-  S3_URI_BUCKET: process.env.S3_URI_BUCKET
+  S3_URI_BUCKET: process.env.S3_URI_BUCKET,
+  COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID,
+  COGNITO_CLIENT_ID: process.env.COGNITO_CLIENT_ID,
 };
