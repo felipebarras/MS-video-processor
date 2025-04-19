@@ -1,5 +1,6 @@
 const { generatePresignedUrl } = require('../utils/s3.client');
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
   getSignedUrl: jest.fn().mockResolvedValue('https://mock-url-upload')
@@ -30,7 +31,7 @@ describe('generatePresignedUrl', () => {
 
     expect(GetObjectCommand).toHaveBeenCalledWith({
       Bucket: expect.any(String),
-      Key: 'video-felipe.mp4'
+      Key: 'videos/video-felipe.mp4'
     });
     expect(getSignedUrl).toHaveBeenCalled();
     expect(url).toBe('https://mock-url-upload');

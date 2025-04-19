@@ -4,7 +4,7 @@ const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const { AWS_REGION, S3_BUCKET_NAME } = require('../utils/env');
 
 const s3 = new S3Client({
-  region: AWS_REGION,
+  region: AWS_REGION
   // credentials: {
   //   accessKeyId: AWS_ACCESS_KEY_ID,
   //   secretAccessKey: AWS_SECRET_ACCESS_KEY,
@@ -16,7 +16,9 @@ exports.generatePresignedUrl = async (key, action = 'putObject') => {
   const objectKey = `videos/${key}`;
 
   const command =
-    action === 'getObject' ? new GetObjectCommand({ Bucket: S3_BUCKET_NAME, Key: key }) : new PutObjectCommand({ Bucket: S3_BUCKET_NAME, Key: key });
+    action === 'getObject'
+      ? new GetObjectCommand({ Bucket: S3_BUCKET_NAME, Key: objectKey })
+      : new PutObjectCommand({ Bucket: S3_BUCKET_NAME, Key: objectKey });
 
   return getSignedUrl(s3, command, { expiresIn: 3600 });
 };
