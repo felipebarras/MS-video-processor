@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-const { COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID } = require('../utils/env');
+const { AWS_REGION, COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID } = require('../utils/env');
 
-const region = 'us-east-1';
+const region = AWS_REGION;
 const userPoolId = COGNITO_USER_POOL_ID;
 const clientId = COGNITO_CLIENT_ID;
 
