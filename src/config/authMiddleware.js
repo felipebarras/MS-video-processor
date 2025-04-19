@@ -28,7 +28,6 @@ const authenticate = (req, res, next) => {
     issuer: iss,
     algorithms: ['RS256']
   }, (err, decoded) => {
-    console.log(JSON.stringify(decoded));
     if (err) return res.status(403).json({ message: 'Invalid token', error: err });
 
     if (decoded.client_id !== clientId) {
