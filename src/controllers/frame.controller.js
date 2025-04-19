@@ -104,3 +104,11 @@ exports.deleteAllFrames = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar os frames.' });
   }
 };
+
+exports.testAuthentication = async (req, res) => {
+  try {
+    res.status(200).json({ message: '✅ Authentication successful!' });
+  } catch (err) {
+    res.status(401).json({ error: 'Erro na autenticação' });
+  }
+};
