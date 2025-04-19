@@ -10,6 +10,11 @@
       "get": {
         "summary": "Lista todos os frames por username",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -33,6 +38,11 @@
       "post": {
         "summary": "Cria um novo frame",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -67,6 +77,11 @@
       "delete": {
         "summary": "Deleta todos os frames",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Todos os frames foram deletados com sucesso"
@@ -81,6 +96,11 @@
       "get": {
         "summary": "Obtém um frame pelo ID",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "frameId",
@@ -108,6 +128,11 @@
       "get": {
         "summary": "Gera uma URL assinada para upload do vídeo",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "frameId",
@@ -133,6 +158,11 @@
       "patch": {
         "summary": "Atualiza o status do frame após upload do vídeo",
         "tags": ["Frames"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "frameId",
@@ -176,6 +206,15 @@
             "description": "Erro ao atualizar status e enviar para SQS"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
