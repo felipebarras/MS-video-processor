@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 const authenticate = require('../config/authMiddleware');
+const { COGNITO_CLIENT_ID } = require('../utils/env');
 
 jest.mock('jsonwebtoken');
 jest.mock('jwks-rsa');
 
 describe('authMiddleware', () => {
   let req, res, next;
+  const client_id = COGNITO_CLIENT_ID;
 
   beforeEach(() => {
     req = { headers: { authorization: 'Bearer valid.token.here' } };
@@ -18,7 +20,7 @@ describe('authMiddleware', () => {
   });
 
   test('✅ Deve permitir acesso com token válido e clientId correto', () => {
-    jwksClient.mockImplementation((token, keyGetter, options, cb) => cb(null, { client_id: '2o0ul3o15gc83uido9o2djt06l', sub: 'user-id' }));
+    jwksClient.verify.mockImplementation((token, getKey, options, cb) => cb(null, { client_id, sub: 'user-id' }));
 
     authenticate(req, res, next);
 
@@ -32,16 +34,25 @@ describe('authMiddleware', () => {
     authenticate(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Token not provided' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Token não fornecido' });
     expect(next).not.toHaveBeenCalled();
   });
 
-  test('❌ Deve retornar um 403 se o token fornecido for inválido', async () => {
-    jwt.verify.mockImplementation((token, keyGetter, options, cb) => cb(null, { client_id: 'CLIENTE_ERROU' }));
+  test('❌ Deve retornar um 401 se o token for inválido', async () => {
+    jwt.verify.mockImplementation((token, getKey, options, cb) => cb(new Error('Token inválido ou expirado')));
+
+    authenticate(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Token inválido ou expirado' });
+  });
+
+  test('❌ Deve retornar um 403 se o client_id for inválido', async () => {
+    jwt.verify.mockImplementation((token, getKey, options, cb) => cb(null, { client_id: 'CLIENTE_INVALIDO' }));
 
     authenticate(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Invalid token' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Cliente inválido' });
   });
 });

@@ -24,7 +24,7 @@ const authenticate = (req, res, next) => {
   jwt.verify(token, getKey, { issuer: iss, algorithms: ['RS256'] }, (err, decoded) => {
     console.log(JSON.stringify(decoded));
     if (err) return res.status(401).json({ message: 'Token inválido ou expirado' });
-    if (decoded.client_id !== clientId) return res.status(403).json({ message: 'Cliente inválido' });
+    if (decoded.client_id !== COGNITO_CLIENT_ID) return res.status(403).json({ message: 'Cliente inválido' });
 
     req.user = decoded; // Contains user sub, email, custom attributes etc.
     next();
