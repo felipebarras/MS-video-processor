@@ -9,6 +9,5 @@ router.get('/:frameId', authenticate, frameController.getFrameById);
 router.get('/:frameId/upload', authenticate, frameController.getUploadURL);
 router.patch('/:frameId/uploaded', authenticate, frameController.confirmUpload);
 router.delete('/', authenticate, frameController.deleteAllFrames);
-router.get('/test', authenticate, frameController.testAuthentication)
 
 module.exports = router;
