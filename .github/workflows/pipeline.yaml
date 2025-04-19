@@ -61,13 +61,13 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t video-processor:latest .
+          docker build -t video-api:latest .
 
       - name: Push Docker Image to Amazon ECR
         env:
-          ECR_URL: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-processor
+          ECR_URL: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-api
         run: |
-          docker tag video-processor:latest $ECR_URL:latest
+          docker tag video-api:latest $ECR_URL:latest
           docker push $ECR_URL:latest
 
       - name: Configure Kubectl

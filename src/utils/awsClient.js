@@ -1,13 +1,14 @@
 const { SQSClient, SendMessageCommand } = require('@aws-sdk/client-sqs');
-const { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, SQS_QUEUE_URL } = require('./env');
+// const { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, SQS_QUEUE_URL } = require('./env');
+const { AWS_REGION, SQS_QUEUE_URL } = require('./env');
 
 const sqsClient = new SQSClient({
   region: AWS_REGION,
-  credentials: {
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    sessionToken: AWS_SESSION_TOKEN
-  }
+  // credentials: {
+  //   accessKeyId: AWS_ACCESS_KEY_ID,
+  //   secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  //   sessionToken: AWS_SESSION_TOKEN
+  // }
 });
 
 async function sendMessageToQueue(messageBody) {

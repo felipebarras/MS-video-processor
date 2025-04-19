@@ -18,22 +18,31 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: video-processor-app
-          image: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-processor:latest
+          image: 345124661122.dkr.ecr.us-east-1.amazonaws.com/video-api:latest
           ports:
             - name: http
               containerPort: 3000
           env:
             - name: PORT
-              value: 3000
+              value: "3000"
             - name: AWS_REGION
-              value: us-east-1
+              value: "us-east-1"
+            - name: MONGODB_URI
+              value: "mongodb+srv://felipebarras:felipe2711@ms-video-processor.suwbuz3.mongodb.net/?retryWrites=true&w=majority&appName=MS-VIDEO-PROCESSOR"
             - name: SQS_QUEUE_URL
-              value: https://sqs.us-east-1.amazonaws.com/345124661122/SQS-FIAP-Hackathon
-            - name: FRAME_PROCESSOR_API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: video-processor-config
-                  key: FRAME_PROCESSOR_API_URL
+              value: "https://sqs.us-east-1.amazonaws.com/345124661122/SQS-FIAP-Hackathon"
+            - name: SQS_QUEUE_ARN
+              value: "arn:aws:sqs:us-east-1:345124661122:SQS-FIAP-hackathon"
+            - name: S3_BUCKET_NAME
+              value: "bucket-videos-fiap-hackathon"
+            - name: S3_BUCKET_ARN
+              value: "arn:aws:s3:::bucket-videos-fiap-hackathon/videos/"
+            - name: S3_URI_BUCKET
+              value: "s3://bucket-videos-fiap-hackathon/videos/"
+            - name: COGNITO_USER_POOL_ID
+              value: "us-east-1_MKWw9pL8q"
+            - name: COGNITO_CLIENT_ID
+              value: "2o0ul3o15gc83uido9o2djt06l"
           resources:
             requests:
               cpu: '500m'
