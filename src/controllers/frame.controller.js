@@ -104,3 +104,4 @@ exports.deleteAllFrames = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar os frames.' });
   }
 };
+
