@@ -17,11 +17,7 @@ exports.generatePresignedUrl = async (key, action = 'putObject') => {
 
   const command =
     action === 'getObject'
-<<<<<<< HEAD
-      ? new GetObjectCommand({ Bucket: S3_BUCKET_NAME, Key: key })
-=======
       ? new GetObjectCommand({ Bucket: S3_BUCKET_NAME, Key: objectKey })
->>>>>>> feature/configure-auth
       : new PutObjectCommand({ Bucket: S3_BUCKET_NAME, Key: objectKey });
 
   return getSignedUrl(s3, command, { expiresIn: 3600 });
