@@ -78,15 +78,15 @@ exports.confirmUpload = async (req, res) => {
     await sendMessageToQueue({
       type: 'PROCESS_VIDEO',
       frameId,
-      status: 'upload_feito',
+      status: 'UPLOAD_FEITO',
       // videoDownloadURL: downloadURL,
-      bucketName: 'bucket-videos-fiap-hackathon/videos',
+      bucketName: 'bucket-videos-fiap-hackathon',
       key: frameId,
       username,
       email
     });
 
-    await frameModel.updateFrameStatus(frameId, 'upload_feito');
+    await frameModel.updateFrameStatus(frameId, 'UPLOAD_FEITO');
 
     res.status(200).json({ message: 'Upload confirmado e notificação enviada para SQS!' });
   } catch (err) {

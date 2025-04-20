@@ -38,10 +38,10 @@ describe('Frame Model', () => {
   });
 
   test('updateFrameStatus deve atualizar o status do frame', async () => {
-    await frameModel.updateFrameStatus(insertedId, 'upload_feito');
+    await frameModel.updateFrameStatus(insertedId, 'UPLOAD_FEITO');
     const updated = await frameModel.getFrameById(insertedId);
 
-    expect(updated.status).toBe('upload_feito');
+    expect(updated.status).toBe('UPLOAD_FEITO');
   });
 
   test('deleteAllFrames deve apagar tudo da base de dados', async () => {

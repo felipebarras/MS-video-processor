@@ -158,7 +158,7 @@ describe('Frame Controller', () => {
     await frameController.confirmUpload(req, res);
 
     expect(frameModel.getFrameById).toHaveBeenCalledWith('abc123');
-    expect(frameModel.updateFrameStatus).toHaveBeenCalledWith('abc123', 'upload_feito');
+    expect(frameModel.updateFrameStatus).toHaveBeenCalledWith('abc123', 'UPLOAD_FEITO');
     expect(awsClient.sendMessageToQueue).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({ message: 'Upload confirmado e notificação enviada para SQS!' });
