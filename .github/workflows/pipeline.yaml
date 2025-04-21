@@ -61,7 +61,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t video-api:latest .
+          docker build -t video-api .
 
       - name: Push Docker Image to Amazon ECR
         env:
