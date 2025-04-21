@@ -187,7 +187,7 @@ describe('Frame Controller', () => {
     const res = mockRes();
 
     frameModel.getFrameById.mockResolvedValue({ _id: 'abc123' });
-    s3.generatePresignedUrl.mockRejectedValue(new Error('erro'));
+    awsClient.sendMessageToQueue.mockRejectedValue(new Error('erro'));
 
     await frameController.confirmUpload(req, res);
 

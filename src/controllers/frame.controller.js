@@ -73,13 +73,10 @@ exports.confirmUpload = async (req, res) => {
     }
     console.log(`Frame encontrado do upload: frameId=${frameId}`);
 
-    // const downloadURL = await presignedUrl.generatePresignedUrl(frameId, 'getObject');
-
     await sendMessageToQueue({
       type: 'PROCESS_VIDEO',
       frameId,
       status: 'UPLOAD_FEITO',
-      // videoDownloadURL: downloadURL,
       bucketName: 'bucket-videos-fiap-hackathon',
       key: frameId,
       username,
@@ -106,4 +103,3 @@ exports.deleteAllFrames = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar os frames.' });
   }
 };
-
