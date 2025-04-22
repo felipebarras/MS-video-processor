@@ -43,6 +43,21 @@ spec:
               value: "us-east-1_I0HehnI4D"
             - name: COGNITO_CLIENT_ID
               value: "6qp16ge9rotqv0c0cics90n6k5"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_SESSION_TOKEN
           resources:
             requests:
               cpu: '500m'
