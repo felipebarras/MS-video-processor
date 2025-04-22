@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const setupSwagger = require('./config/swagger');
 const frameRoutes = require('./routes/frame.routes');
+const healthCheckRoute = require('./routes/healthCheck.route');
 
 const app = express();
 
@@ -13,5 +14,6 @@ setupSwagger(app);
 
 // Rotas
 app.use('/frames', frameRoutes);
+app.use('/', healthCheckRoute);
 
 module.exports = app;

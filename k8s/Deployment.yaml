@@ -40,9 +40,24 @@ spec:
             - name: S3_URI_BUCKET
               value: "s3://bucket-videos-fiap-hackathon/videos/"
             - name: COGNITO_USER_POOL_ID
-              value: "us-east-1_MKWw9pL8q"
+              value: "us-east-1_D5PaTXtkT"
             - name: COGNITO_CLIENT_ID
-              value: "2o0ul3o15gc83uido9o2djt06l"
+              value: "78obnegeusrgka18ckb1o1s3q7"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eks-video-backoffice-secrets
+                  key: AWS_SESSION_TOKEN
           resources:
             requests:
               cpu: '500m'
