@@ -40,9 +40,9 @@ spec:
             - name: S3_URI_BUCKET
               value: "s3://bucket-videos-fiap-hackathon/videos/"
             - name: COGNITO_USER_POOL_ID
-              value: "us-east-1_sYKXR26vY"
+              value: "us-east-1_D5PaTXtkT"
             - name: COGNITO_CLIENT_ID
-              value: "3t3ohvkbvsfc0k9ag097vj5hfd"
+              value: "78obnegeusrgka18ckb1o1s3q7"
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
